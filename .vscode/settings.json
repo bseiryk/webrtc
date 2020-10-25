@@ -1,0 +1,16 @@
+{
+    "prettier.eslintIntegration": true,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "all",
+    "eslint.autoFixOnSave": true,
+    "eslint.alwaysShowStatus": true,
+    // Set the default
+    "editor.formatOnSave": false,
+    // Enable per-language
+    "[javascript]": {
+      "editor.formatOnSave": true
+    },
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+  }

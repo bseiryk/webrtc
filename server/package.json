@@ -1,0 +1,70 @@
+{
+  "name": "transitionmanager",
+  "version": "0.0.1",
+  "description": "",
+  "main": "www.js",
+  "scripts": {
+    "lint": "eslint",
+    "start": "NODE_ENV=development port=2222 npm-run-all watch:dev",
+    "watch:dev": "nodemon --exec babel-node --inspect ./src/bin/www",
+    "prod": "NODE_ENV=production port=2222 npm-run-all build server",
+    "build": "npm-run-all clean transpile",
+    "clean": "rimraf dist-server",
+    "transpile": "babel ./src --out-dir dist-server",
+    "server": "node ./dist-server/bin/www"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.9.2",
+    "@hapi/joi": "^17.1.1",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.7",
+    "multer": "^1.4.2",
+    "node-turn": "0.0.6",
+    "nodemon": "^2.0.2",
+    "npm-run-all": "^4.1.5",
+    "passport": "^0.4.1",
+    "passport-google-oauth": "^2.0.0",
+    "socket.io": "^2.3.0",
+    "uuid": "^8.3.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "rimraf": "^3.0.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      [
+        "@babel/transform-runtime"
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "env": {
+      "es6": true
+    },
+    "rules": {
+      "no-use-before-define": 0,
+      "func-names": 0,
+      "import/prefer-default-export": 0
+    }
+  }
+}
