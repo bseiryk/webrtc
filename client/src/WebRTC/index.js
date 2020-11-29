@@ -53,8 +53,8 @@ const addMutesForItem = (value) => {
   const audioMethod = isMuteAudio ? 'add' : 'remove';
   const videoMethod = isMuteVideo ? 'add' : 'remove';
 
-  audioElement.classList[audioMethod]('red');
-  videoElement.classList[videoMethod]('red');
+  if (audioElement) audioElement.classList[audioMethod]('red');
+  if (videoElement) videoElement.classList[videoMethod]('red');
 }
 
 const USER_ID = `id_${Date.now()}_${uuidv4()}`;
@@ -68,8 +68,6 @@ class WebRTC extends React.PureComponent {
     this.shareScreenNode = null;
 
     this.localStream = null;
-    this.isMuteVideo = false;
-    this.isMuteAudio = false;
 
     this.remoteStreams = {}
     this.calls = {}
@@ -78,6 +76,9 @@ class WebRTC extends React.PureComponent {
     this.state = {
       roomID: getRoomID(),
       isJoined: false,
+      isMuteAudio: false,
+      isMuteVideo: false,
+      isSharingScreen: false,
     }
   }
 
@@ -138,7 +139,8 @@ class WebRTC extends React.PureComponent {
     this.calls[call.peer] = call;
 
     call.on('stream', remoteStream => {
-      this.addNewStreamVideo(remoteStream, call.peer)
+      this.addNewStreamVideo(remoteStream, call.peer);
+      this.shareWithMuteSettings();
     });
 
     call.on('close', () => {
@@ -172,7 +174,8 @@ class WebRTC extends React.PureComponent {
       call.answer(this.localStream);
 
       call.on('stream', remoteStream => {
-        this.addNewStreamVideo(remoteStream, call.peer)
+        this.addNewStreamVideo(remoteStream, call.peer);
+        this.shareWithMuteSettings();
       });
 
       call.on('close', () => {
@@ -194,41 +197,72 @@ class WebRTC extends React.PureComponent {
     this.localStream.getTracks()
       .forEach(track => track.stop());
     this.localStream = null;
-    this.setState({ isJoined: false });
+    this.setState({
+      isJoined: false,
+      isMuteAudio: false,
+      isMuteVideo: false,
+      isSharingScreen: false,
+    });
+  }
+
+  shareWithMuteSettings = () => {
+    const muteSettings = {
+      isMuteVideo: this.state.isMuteVideo,
+      isMuteAudio: this.state.isMuteAudio,
+      userId: USER_ID,
+    };
+    this.socket.emit('mute', muteSettings);
   }
 
   handleMuteChanges = () => {
+    const { isMuteVideo, isMuteAudio } = this.state;
+
     const muteSettings = {
-      isMuteVideo: this.isMuteVideo,
-      isMuteAudio: this.isMuteAudio,
+      isMuteVideo,
+      isMuteAudio,
       userId: USER_ID,
-    }
+    };
 
-    this.socket.emit('mute', muteSettings);
+    this.localStream.getTracks()
+      .forEach(track => {
+        if (track.kind === 'audio') track.enabled = !isMuteAudio;
+        if (track.kind === 'video') track.enabled = !isMuteVideo;
+      });
+
     addMutesForItem(muteSettings);
+    this.shareWithMuteSettings();
   }
 
-  onMuteAudio = isMuteAudio => {
-    this.isMuteAudio = isMuteAudio;
-
-    this.localStream.getAudioTracks()
-      .forEach(track => track.enabled = !isMuteAudio);
-
-    this.handleMuteChanges();
+  onMuteAudio = () => {
+    this.setState(
+      { isMuteAudio: !this.state.isMuteAudio },
+      this.handleMuteChanges
+    )
   }
 
-  onMuteVideo = isMuteVideo => {
-    this.isMuteVideo = isMuteVideo;
+  onMuteVideo = () => {
+    this.setState(
+      { isMuteVideo: !this.state.isMuteVideo },
+      this.handleMuteChanges
+    )
+  }
 
-    this.localStream.getVideoTracks()
-      .forEach(track => track.enabled = !isMuteVideo);
-
-    this.handleMuteChanges();
+  onShareScreen = () => {
+    this.setState({
+      isSharingScreen: !this.state.isSharingScreen,
+    })
   }
 
 
   render() {
-    const { isJoined, roomID } = this.state;
+    const {
+      isJoined,
+      roomID,
+      isMuteAudio,
+      isMuteVideo,
+      isSharingScreen,
+    } = this.state;
+
     return (
       <div className='app'>
         <div className='join-block'>
@@ -248,8 +282,12 @@ class WebRTC extends React.PureComponent {
         </div>
         <CallScreen
           isJoined={isJoined}
+          isMuteAudio={isMuteAudio}
+          isMuteVideo={isMuteVideo}
+          isSharingScreen={isSharingScreen}
           onMuteAudio={this.onMuteAudio}
           onMuteVideo={this.onMuteVideo}
+          onShareScreen={this.onShareScreen}
           onDropCall={this.onDropCall}
           partisipantsRef={node => this.partisipantsNode = node}
           shareScreenRef={node => this.shareScreenNode = node}

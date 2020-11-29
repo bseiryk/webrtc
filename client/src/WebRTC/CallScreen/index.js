@@ -8,28 +8,17 @@ import './index.css'
 
 const CallScreen = (props) => {
   const {
+    isMuteAudio,
+    isMuteVideo,
+    isSharingScreen,
     isJoined,
     partisipantsRef,
     shareScreenRef,
     onDropCall,
     onMuteAudio,
     onMuteVideo,
+    onShareScreen,
   } = props;
-
-  const [isMuteAudio, setMuteAudio] = useState(false);
-  const [isMuteVideo, setMuteVideo] = useState(false);
-
-  const handleMuteAudio = () => {
-    setMuteAudio(!isMuteAudio);
-    onMuteAudio(!isMuteAudio)
-  }
-  const handleMuteVideo = () => {
-    setMuteVideo(!isMuteVideo);
-    onMuteVideo(!isMuteVideo)
-  }
-  const handleShareScreen = () => {
-
-  }
 
   return (
     <div
@@ -50,19 +39,19 @@ const CallScreen = (props) => {
           </div>
           <div
             className={classnames('btn', { red: isMuteAudio })}
-            onClick={handleMuteAudio}
+            onClick={onMuteAudio}
           >
             <FontAwesomeIcon icon={faMicrophoneSlash} />
           </div>
           <div
             className={classnames('btn', { red: isMuteVideo })}
-            onClick={handleMuteVideo}
+            onClick={onMuteVideo}
           >
             <FontAwesomeIcon icon={faVideoSlash} />
           </div>
           <div
-            className={classnames('btn')}
-            onClick={handleShareScreen}
+            className={classnames('btn', { red: isSharingScreen })}
+            onClick={onShareScreen}
           >
             <FontAwesomeIcon icon={faDesktop} />
           </div>
