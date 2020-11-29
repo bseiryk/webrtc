@@ -1,7 +1,10 @@
 export default {
   constraints: {
     'video': true,
-    'audio': true,
+    'audio': {
+      echoCancellation: true,
+      noiseSuppression: true,
+    },
   },
   pearConfig: {
     iceServers: [
@@ -11,5 +14,5 @@ export default {
   offerConfig: {
     offerToReceiveAudio: true
   },
-  socketUrl: 'http://192.168.0.27:8888/',
+  socketUrl: 'ws://192.168.0.27:8888/',
 }

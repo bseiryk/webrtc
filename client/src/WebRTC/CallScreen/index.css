@@ -1,0 +1,96 @@
+.red {
+  color: #840f0f;
+}
+
+.app .call-screen {
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #c5c5c5;
+  visibility: hidden;
+}
+
+.app .call-screen.show-call-window {
+  visibility: visible;
+}
+
+/* main block start */
+.call-screen .main .header {
+  background: #737373;
+  height: 50px;
+  font-size: 35px;
+  padding-top: 8px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.call-screen .main .header .btn {
+  width: 40px;
+  margin: 0px 10px;
+  cursor: pointer;
+}
+.call-screen .main .header .red {
+  color: #840f0f;
+}
+
+.app .call-screen .main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.app .call-screen .main .main-stream {
+  background-color: #4a4a4a;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+.app .call-screen .main .main-stream video {
+  height: 100%;
+}
+/* main block end */
+
+
+/* callers block start */
+.app .call-screen .partisipants-container {
+  width: 250px;
+  background: #737373;
+  display: flex;
+  flex-direction: column;
+  padding: 45px 0px 10px;
+  overflow: auto;
+}
+
+.app .call-screen .partisipants-container .partisipant {
+  margin: 5px 15px;
+  height: 200px;
+  background: #4a4a4a;
+  box-sizing: content-box;
+  border-radius: 2px;
+  position: relative;
+}
+.app .call-screen .partisipants-container .partisipant video {
+  height: 165px;
+  width: 220px;
+  background: #4a4a4a;
+}
+.app .call-screen .partisipants-container .partisipant .options-wrapper {
+  height: 30px;
+  width: 100%;
+  bottom: 0px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+.app .call-screen .partisipants-container .partisipant .options-wrapper .fa {
+  margin-left: 10px;
+  font-size: 20px;
+}
+/* callers block end */
+
+

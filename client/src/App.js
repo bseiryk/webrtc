@@ -1,13 +1,11 @@
 import React from 'react';
-import Zoom from './components/webrtc';
+import WebRTC from './WebRTC';
+import '@fortawesome/fontawesome-free/css/all.css';
 
-import './index.css'
 
 function App() {
   return (
-    <div>
-      <Zoom />
-    </div>
+    <WebRTC />
   );
 }
 
