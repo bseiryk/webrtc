@@ -247,10 +247,48 @@ class WebRTC extends React.PureComponent {
     )
   }
 
-  onShareScreen = () => {
-    this.setState({
-      isSharingScreen: !this.state.isSharingScreen,
-    })
+  onShareScreen = async () => {
+    // this.setState({
+    //   isSharingScreen: !this.state.isSharingScreen,
+    // })
+    const displayMediaOptions = {
+      video: {
+        cursor: 'always',
+        displaySurface: 'monitor'
+      },
+      audio: false,
+      id: 'peerIdentity'
+    }
+
+    try {
+      const captureStream = await navigator.mediaDevices
+        .getDisplayMedia(displayMediaOptions);
+
+      Object.keys(this.calls)
+        .forEach(id => {
+
+          const call = this.peer.call(
+            id,
+            captureStream,
+            { metadata: { screen: true } }
+          );
+
+          call.on('stream', remoteStream => {
+            this.addNewStreamVideo(remoteStream, call.peer);
+          });
+
+          // call.on('close', () => {
+          //   const element = document.getElementById(call.peer);
+          //   delete this.calls[call.peer]
+          //   delete this.remoteStreams[call.peer]
+          //   if (element) element.remove();
+          // })
+
+        })
+
+    } catch (err) {
+      console.error("Error: " + err);
+    }
   }
 
 
