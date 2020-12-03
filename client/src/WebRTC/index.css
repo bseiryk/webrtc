@@ -20,6 +20,8 @@
   border: none;
   border-radius: 4px;
   font-size: 35px;
+  padding: 0px 10px;
+  box-sizing: border-box;
 }
 
 .app .join-block .join-room-btn {

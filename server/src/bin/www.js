@@ -57,6 +57,9 @@ io.on('connection', socket => {
     socket.on('mute', (value) => {
       socket.to(roomId).broadcast.emit('user-mute', value);
     })
+    socket.on('stop-sharing', () => {
+      socket.to(roomId).broadcast.emit('stop-sharing', userId);
+    })
   })
 })
 

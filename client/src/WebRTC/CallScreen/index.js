@@ -50,7 +50,7 @@ const CallScreen = (props) => {
             <FontAwesomeIcon icon={faVideoSlash} />
           </div>
           <div
-            className={classnames('btn', { red: isSharingScreen })}
+            className={classnames('btn', { disabled: isSharingScreen })}
             onClick={onShareScreen}
           >
             <FontAwesomeIcon icon={faDesktop} />

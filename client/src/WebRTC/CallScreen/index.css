@@ -1,6 +1,10 @@
 .red {
   color: #840f0f;
 }
+.disabled {
+  color: #9a9a9a;
+  cursor: not-allowed !important;
+}
 
 .app .call-screen {
   top: 0px;
@@ -50,7 +54,7 @@
   justify-content: center;
 }
 .app .call-screen .main .main-stream video {
-  height: 100%;
+  height: 100px;
 }
 /* main block end */
 
