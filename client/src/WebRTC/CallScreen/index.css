@@ -54,7 +54,7 @@
   justify-content: center;
 }
 .app .call-screen .main .main-stream video {
-  height: 100px;
+  width: calc(100vw - 250px);
 }
 /* main block end */
 
@@ -71,7 +71,7 @@
 
 .app .call-screen .partisipants-container .partisipant {
   margin: 5px 15px;
-  height: 200px;
+  min-height: 200px;
   background: #4a4a4a;
   box-sizing: content-box;
   border-radius: 2px;
@@ -83,7 +83,7 @@
   background: #4a4a4a;
 }
 .app .call-screen .partisipants-container .partisipant .options-wrapper {
-  height: 30px;
+  height: 35px;
   width: 100%;
   bottom: 0px;
   position: absolute;
