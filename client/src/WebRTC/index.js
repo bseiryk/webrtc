@@ -317,10 +317,7 @@ class WebRTC extends React.PureComponent {
 
 
   componentDidMount() {
-    this.peer = new Peer(USER_ID, {
-      host: '/',
-      port: 9000
-    });
+    this.peer = new Peer(USER_ID);
 
     this.socketHandler();
     this.peerHandler();

@@ -6,11 +6,6 @@ export default {
       noiseSuppression: true,
     },
   },
-  // pearConfig: {
-  //   iceServers: [
-  //     { urls: 'stun:stun.l.google.com:19302' }
-  //   ],
-  // },
   screenConstraints: {
     video: {
       cursor: 'always',
