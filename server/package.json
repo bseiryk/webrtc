@@ -1,17 +1,18 @@
 {
-  "name": "transitionmanager",
+  "name": "webrtc",
   "version": "0.0.1",
   "description": "",
   "main": "www.js",
   "scripts": {
     "lint": "eslint",
     "start": "NODE_ENV=development port=2222 npm-run-all watch:dev",
-    "watch:dev": "nodemon --exec babel-node --inspect ./src/bin/www",
+    "watch:dev": "nodemon --exec babel-node --inspect ./src/app",
     "prod": "NODE_ENV=production port=2222 npm-run-all build server",
     "build": "npm-run-all clean transpile",
     "clean": "rimraf dist-server",
-    "transpile": "babel ./src --out-dir dist-server",
-    "server": "node ./dist-server/bin/www"
+    "transpile": "babel ./src --out-dir dist-server && npm run mv-ui-build",
+    "mv-ui-build": "cp -R ./src/build ./dist-server ",
+    "server": "node ./dist-server/app"
   },
   "author": "",
   "license": "ISC",

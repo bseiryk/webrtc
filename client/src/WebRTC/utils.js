@@ -9,7 +9,7 @@ export const createPartisipantElement = (stream, id, isLocal) => {
     videoElement.play()
   });
   videoElement.srcObject = stream;
-  videoElement.muted = true;
+  videoElement.muted = isLocal;
 
   const audioIcon = document.createElement('span');
   audioIcon.classList.add('fa', 'fa-microphone-slash');

@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import { Server } from 'http';
 import iio from 'socket.io';
 
-
+const PORT = process.env.port || 8888;
 
 
 const app = express();
@@ -22,6 +22,10 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/resources', express.static(path.resolve(__dirname) + "/build"));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname) + "/build/index.html");
+});
 
 
 io.on('connection', socket => {
@@ -45,8 +49,8 @@ io.on('connection', socket => {
     })
   })
 })
-
+console.log(PORT)
 server.listen(
-  { port: 8888 },
-  () => console.log(`🚀 Server ready at http://localhost:8888`),
+  { port: PORT },
+  () => console.log(`🚀 Server ready at http://localhost:${PORT}`),
 );
