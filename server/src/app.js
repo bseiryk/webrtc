@@ -49,7 +49,7 @@ io.on('connection', socket => {
     })
   })
 })
-console.log(PORT)
+
 server.listen(
   { port: PORT },
   () => console.log(`🚀 Server ready at http://localhost:${PORT}`),
