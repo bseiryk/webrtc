@@ -5,9 +5,9 @@
   "main": "www.js",
   "scripts": {
     "lint": "eslint",
-    "start": "NODE_ENV=development port=2222 npm-run-all watch:dev",
+    "start": "NODE_ENV=development npm-run-all watch:dev",
     "watch:dev": "nodemon --exec babel-node --inspect ./src/app",
-    "prod": "NODE_ENV=production port=2222 npm-run-all build server",
+    "prod": "NODE_ENV=production npm-run-all server",
     "build": "npm-run-all clean transpile",
     "clean": "rimraf dist-server",
     "transpile": "babel ./src --out-dir dist-server && npm run mv-ui-build",
@@ -18,6 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.9.2",
+    "@babel/node": "^7.8.7",
     "@hapi/joi": "^17.1.1",
     "body-parser": "^1.19.0",
     "connect-mongo": "^3.2.0",
@@ -40,7 +41,6 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
-    "@babel/node": "^7.8.7",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "eslint": "^6.8.0",

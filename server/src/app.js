@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import { Server } from 'http';
 import iio from 'socket.io';
 
-const PORT = process.env.port || 8888;
+const PORT = process.env.PORT || 8888;
 
 
 const app = express();
