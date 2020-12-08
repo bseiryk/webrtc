@@ -1,4 +1,3 @@
-// TODO: isLocal
 export const createPartisipantElement = (stream, id, isLocal) => {
   const container = document.createElement('div');
   container.classList.add('partisipant');
